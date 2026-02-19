@@ -8,108 +8,85 @@ type Props = {
   images: string[];
 };
 
-export default function BentoInfiniteGallery({ images }: Props) {
-  const track = useRef<HTMLDivElement>(null);
+export default function BentoGridSlider({ images }: Props) {
+  const trackRef = useRef<HTMLDivElement>(null);
 
-  const state = useRef({
-    x: 0,
-    isDown: false,
-    startX: 0,
-    lastX: 0,
-  });
+  useGSAP(() => {
+    const el = trackRef.current;
+    if (!el) return;
 
-  useGSAP(
-    () => {
-      const el = track.current;
-      if (!el) return;
+    const totalWidth = el.scrollWidth / 2;
 
-      const items = el.querySelectorAll<HTMLElement>(".bento-item");
-      if (!items.length) return;
+    gsap.to(el, {
+      x: -totalWidth,
+      duration: 35,
+      ease: "none",
+      repeat: -1,
+      modifiers: {
+        x: (x) => {
+          const value = parseFloat(x);
+          return `${value % totalWidth}px`;
+        },
+      },
+    });
+  }, []);
 
-      let oneSetWidth = 0;
-      for (let i = 0; i < items.length / 2; i++) {
-        oneSetWidth += items[i].offsetWidth + 16;
-      }
-
-      const render = () => {
-        const wrapped = gsap.utils.wrap(-oneSetWidth, 0, state.current.x);
-        gsap.set(el, { x: wrapped });
-      };
-
-      const auto = gsap.ticker.add(() => {
-        if (!state.current.isDown) {
-          state.current.x -= 0.4; // speed
-          render();
-        }
-      });
-
-      const onDown = (e: PointerEvent) => {
-        state.current.isDown = true;
-        state.current.startX = e.clientX;
-        state.current.lastX = state.current.x;
-        el.setPointerCapture(e.pointerId);
-      };
-
-      const onMove = (e: PointerEvent) => {
-        if (!state.current.isDown) return;
-        const delta = e.clientX - state.current.startX;
-        state.current.x = state.current.lastX + delta;
-        render();
-      };
-
-      const onUp = () => {
-        state.current.isDown = false;
-      };
-
-      el.addEventListener("pointerdown", onDown);
-      window.addEventListener("pointermove", onMove);
-      window.addEventListener("pointerup", onUp);
-
-      render();
-
-      return () => {
-        gsap.ticker.remove(auto);
-
-        el.removeEventListener("pointerdown", onDown);
-        window.removeEventListener("pointermove", onMove);
-        window.removeEventListener("pointerup", onUp);
-      };
-    },
-    { dependencies: [images] },
-  );
-
-  const list = [...images, ...images];
+  const blockImages = images.slice(0, 6);
+  const blocks = [blockImages, blockImages];
 
   return (
-    <div className="overflow-hidden w-full py-10">
-      <div
-        ref={track}
-        className="flex gap-4 cursor-grab active:cursor-grabbing select-none will-change-transform"
-      >
-        {list.map((src, i) => (
-          <div key={i} className={bentoClass(i) + " bento-item"}>
-            <img
-              src={src}
-              draggable={false}
-              className="w-full h-full object-cover rounded-2xl pointer-events-none"
-              alt=""
-            />
+    <section className="h-screen w-full overflow-hidden bg-[#f4f6fb] flex items-center">
+      <div ref={trackRef} className="flex gap-10 w-max">
+        {blocks.map((block, index) => (
+          <div
+            key={index}
+            className="grid grid-cols-4 grid-rows-[1fr_1fr] gap-4 w-[900px] h-[75vh]"
+          >
+            {/* Large left */}
+            <div className="col-span-2 row-span-2">
+              <img
+                src={block[0]}
+                className="w-full h-full object-cover rounded-xl"
+                draggable={false}
+              />
+            </div>
+
+            {/* Top right */}
+            <div>
+              <img
+                src={block[1]}
+                className="w-full h-full object-cover rounded-xl"
+                draggable={false}
+              />
+            </div>
+
+            <div>
+              <img
+                src={block[2]}
+                className="w-full h-full object-cover rounded-xl"
+                draggable={false}
+              />
+            </div>
+
+            {/* Bottom */}
+            <div>
+              <img
+                src={block[3]}
+                className="w-full h-full object-cover rounded-xl"
+                draggable={false}
+              />
+            </div>
+
+            <div>
+              <img
+                src={block[4]}
+                className="w-full h-full object-cover rounded-xl"
+                draggable={false}
+              />
+            </div>
           </div>
         ))}
       </div>
-    </div>
+    </section>
   );
-}
-
-function bentoClass(i: number) {
-  const mod = i % 7;
-
-  if (mod === 0) return "w-[320px] h-[320px] shrink-0 rounded-2xl";
-  if (mod === 1) return "w-[220px] h-[150px] shrink-0 rounded-2xl";
-  if (mod === 2) return "w-[220px] h-[220px] shrink-0 rounded-2xl";
-  if (mod === 3) return "w-[300px] h-[180px] shrink-0 rounded-2xl";
-  if (mod === 4) return "w-[180px] h-[180px] shrink-0 rounded-2xl";
-  if (mod === 5) return "w-[260px] h-[320px] shrink-0 rounded-2xl";
-
-  return "w-[200px] h-[260px] shrink-0 rounded-2xl";
 }

@@ -62,7 +62,7 @@ const AboutSection = () => {
   }, [activeIndex]);
 
   return (
-    <section ref={containerRef} className="w-full bg-white py-10 px-6">
+    <section ref={containerRef} className="w-full bg-white py-30 px-6">
       <div className="max-w-7xl mx-auto grid lg:grid-cols-2 gap-14 ">
         {/* ================= LEFT SIDE – PREMIUM IMAGE SLIDER ================= */}
         <div className="w-full">

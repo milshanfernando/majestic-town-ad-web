@@ -88,7 +88,7 @@ const PropertySection = () => {
     },
   ];
   return (
-    <section className="w-full bg-white py-24 px-6">
+    <section className="w-full bg-white">
       {properties.map((prop, index) => (
         <PremiumPropertySection
           key={index}
