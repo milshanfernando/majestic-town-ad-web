@@ -12,20 +12,20 @@ const rooms = [
   {
     type: "Single Room",
     description: "Cozy single room with shared washroom and kitchen access.",
-    img: "/images/singlebed.jpg",
+    img: "/images/singlebed.jpeg",
     features: ["WiFi", "AC", "Shared Kitchen"],
   },
   {
     type: "Queen Room",
     description:
       "Spacious queen room with shared washroom and kitchen facilities.",
-    img: "/images/queenbed.jpg",
+    img: "/images/queen.jpeg",
     features: ["WiFi", "AC", "Shared Kitchen"],
   },
   {
     type: "King Room",
     description: "Luxury king room with shared washroom and kitchen access.",
-    img: "/images/kingbed.jpg",
+    img: "/images/kingbed.jpeg",
     features: ["WiFi", "AC", "Shared Kitchen"],
   },
 ];

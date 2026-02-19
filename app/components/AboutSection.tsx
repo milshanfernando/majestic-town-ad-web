@@ -1,36 +1,109 @@
 "use client";
 
+import { useState, useRef, useEffect } from "react";
 import Image from "next/image";
+import gsap from "gsap";
+import { ScrollTrigger } from "gsap/ScrollTrigger";
+
+gsap.registerPlugin(ScrollTrigger);
+
+const images = [
+  "/images/kingbed.jpeg",
+  "/images/singlebed.jpeg",
+  "/images/queen.jpeg",
+  "/images/loby.jpeg",
+];
 
 const AboutSection = () => {
+  const [activeIndex, setActiveIndex] = useState(0);
+  const containerRef = useRef<HTMLDivElement>(null);
+  const imageRef = useRef<HTMLDivElement>(null);
+
+  // 🔥 Scroll Pin + Image Change Logic
+  useEffect(() => {
+    let currentIndex = 0;
+
+    const ctx = gsap.context(() => {
+      ScrollTrigger.create({
+        trigger: containerRef.current,
+        start: "top top", // when section hits top of screen
+        end: `+=${images.length * 700}`, // scroll distance
+        scrub: true,
+        pin: true, // 👈 locks section
+        anticipatePin: 1,
+        onUpdate: (self) => {
+          const newIndex = Math.floor(self.progress * images.length);
+
+          if (newIndex !== currentIndex && newIndex < images.length) {
+            currentIndex = newIndex;
+            setActiveIndex(newIndex);
+          }
+        },
+      });
+    }, containerRef);
+
+    return () => ctx.revert();
+  }, []);
+
+  // 🔥 Image Transition Animation
+  useEffect(() => {
+    if (!imageRef.current) return;
+
+    gsap.fromTo(
+      imageRef.current,
+      { opacity: 0, scale: 1.1 },
+      {
+        opacity: 1,
+        scale: 1,
+        duration: 0.8,
+        ease: "power3.out",
+      },
+    );
+  }, [activeIndex]);
+
   return (
-    <section className="w-full bg-white py-20 px-6">
-      <div className="max-w-7xl mx-auto grid lg:grid-cols-2 gap-14">
-        {/* Left Side – Image */}
-        {/* Left Side – Two Images */}
-        <div className="relative w-full h-[500px] flex items-center justify-center">
-          {/* King Room (Main Image) */}
-          <div className="relative w-[80%] h-[400px] lg:h-[450px] rounded-3xl overflow-hidden shadow-2xl">
+    <section ref={containerRef} className="w-full bg-white py-10 px-6">
+      <div className="max-w-7xl mx-auto grid lg:grid-cols-2 gap-14 ">
+        {/* ================= LEFT SIDE – PREMIUM IMAGE SLIDER ================= */}
+        <div className="w-full">
+          {/* Main Image */}
+          <div
+            ref={imageRef}
+            className="relative w-full h-[300px] lg:h-[400px] rounded-3xl overflow-hidden shadow-2xl mb-6 will-change-transform"
+          >
             <Image
-              src="/images/kingbed.jpg"
-              alt="King Room"
+              src={images[activeIndex]}
+              alt="Room Image"
               fill
+              priority
               className="object-cover"
             />
           </div>
 
-          {/* Single Room (Floating Image) */}
-          <div className="absolute bottom-0 right-0 w-[55%] h-[250px] lg:h-[300px] rounded-2xl overflow-hidden shadow-xl border-4 border-white">
-            <Image
-              src="/images/singlebed.jpg"
-              alt="Single Room"
-              fill
-              className="object-cover"
-            />
+          {/* Thumbnails */}
+          <div className="grid grid-cols-4 gap-4">
+            {images.map((img, index) => (
+              <div
+                key={index}
+                onClick={() => setActiveIndex(index)}
+                className={`relative h-[90px] rounded-xl overflow-hidden cursor-pointer border-2 transition-all duration-300 ${
+                  activeIndex === index
+                    ? "border-amber-500 scale-105"
+                    : "border-transparent opacity-70 hover:opacity-100"
+                }`}
+              >
+                <Image
+                  src={img}
+                  alt={`Thumbnail ${index}`}
+                  fill
+                  className="object-cover"
+                />
+              </div>
+            ))}
           </div>
         </div>
 
-        {/* Right Side – Content */}
+        {/* ================= RIGHT SIDE – CONTENT ================= */}
         <div>
           <p className="uppercase tracking-[4px] text-amber-500 text-xs sm:text-sm mb-4">
             About Our Properties
