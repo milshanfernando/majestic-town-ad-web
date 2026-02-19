@@ -4,6 +4,7 @@ import { useState, useRef, useEffect } from "react";
 import Image from "next/image";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
+import { useGSAP } from "@gsap/react";
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -18,22 +19,22 @@ const AboutSection = () => {
   const [activeIndex, setActiveIndex] = useState(0);
   const containerRef = useRef<HTMLDivElement>(null);
   const imageRef = useRef<HTMLDivElement>(null);
+  const textRef = useRef<HTMLDivElement>(null);
 
-  // 🔥 Scroll Pin + Image Change Logic
+  // 🔥 Scroll-triggered image change
   useEffect(() => {
     let currentIndex = 0;
 
     const ctx = gsap.context(() => {
       ScrollTrigger.create({
         trigger: containerRef.current,
-        start: "top top", // when section hits top of screen
-        end: `+=${images.length * 700}`, // scroll distance
+        start: "top top",
+        end: `+=${images.length * 700}`,
         scrub: true,
-        pin: true, // 👈 locks section
+        pin: true,
         anticipatePin: 1,
         onUpdate: (self) => {
           const newIndex = Math.floor(self.progress * images.length);
-
           if (newIndex !== currentIndex && newIndex < images.length) {
             currentIndex = newIndex;
             setActiveIndex(newIndex);
@@ -45,8 +46,8 @@ const AboutSection = () => {
     return () => ctx.revert();
   }, []);
 
-  // 🔥 Image Transition Animation
-  useEffect(() => {
+  // 🔥 Scroll-triggered image fade animation
+  useGSAP(() => {
     if (!imageRef.current) return;
 
     gsap.fromTo(
@@ -57,16 +58,92 @@ const AboutSection = () => {
         scale: 1,
         duration: 0.8,
         ease: "power3.out",
+        scrollTrigger: {
+          trigger: imageRef.current,
+          start: "top 80%",
+          end: "top 50%",
+          toggleActions: "play none none reverse",
+        },
       },
     );
   }, [activeIndex]);
 
+  // 🔥 Scroll-triggered premium text animations
+  useGSAP(() => {
+    if (!textRef.current) return;
+
+    const heading = textRef.current.querySelector("h2");
+    const subheading = textRef.current.querySelector("p:first-of-type");
+    const propertyList = textRef.current.querySelectorAll(".property-item");
+    const features = textRef.current.querySelectorAll(".feature-item");
+
+    // Heading animation
+    if (heading)
+      gsap.from(heading, {
+        opacity: 0,
+        y: 50,
+        duration: 1,
+        ease: "power4.out",
+        scrollTrigger: {
+          trigger: heading,
+          start: "top 80%",
+          toggleActions: "play none none reverse",
+        },
+      });
+
+    // Subheading / intro paragraph
+    if (subheading)
+      gsap.from(subheading, {
+        opacity: 0,
+        y: 30,
+        duration: 1,
+        delay: 0.3,
+        ease: "power3.out",
+        scrollTrigger: {
+          trigger: subheading,
+          start: "top 80%",
+          toggleActions: "play none none reverse",
+        },
+      });
+
+    // Property list items
+    propertyList.forEach((el, i) => {
+      gsap.from(el, {
+        opacity: 0,
+        x: -30,
+        duration: 0.8,
+        delay: i * 0.2,
+        ease: "power3.out",
+        scrollTrigger: {
+          trigger: el,
+          start: "top 85%",
+          toggleActions: "play none none reverse",
+        },
+      });
+    });
+
+    // Feature items
+    features.forEach((el, i) => {
+      gsap.from(el, {
+        opacity: 0,
+        x: 30,
+        duration: 0.8,
+        delay: i * 0.1,
+        ease: "power3.out",
+        scrollTrigger: {
+          trigger: el,
+          start: "top 85%",
+          toggleActions: "play none none reverse",
+        },
+      });
+    });
+  }, []);
+
   return (
     <section ref={containerRef} className="w-full bg-white py-30 px-6">
-      <div className="max-w-7xl mx-auto grid lg:grid-cols-2 gap-14 ">
-        {/* ================= LEFT SIDE – PREMIUM IMAGE SLIDER ================= */}
+      <div className="max-w-7xl mx-auto grid lg:grid-cols-2 gap-14">
+        {/* LEFT SIDE – IMAGE */}
         <div className="w-full">
-          {/* Main Image */}
           <div
             ref={imageRef}
             className="relative w-full h-[300px] lg:h-[400px] rounded-3xl overflow-hidden shadow-2xl mb-6 will-change-transform"
@@ -80,7 +157,6 @@ const AboutSection = () => {
             />
           </div>
 
-          {/* Thumbnails */}
           <div className="grid grid-cols-4 gap-4">
             {images.map((img, index) => (
               <div
@@ -103,8 +179,8 @@ const AboutSection = () => {
           </div>
         </div>
 
-        {/* ================= RIGHT SIDE – CONTENT ================= */}
-        <div>
+        {/* RIGHT SIDE – CONTENT */}
+        <div ref={textRef}>
           <p className="uppercase tracking-[4px] text-amber-500 text-xs sm:text-sm mb-4">
             About Our Properties
           </p>
@@ -124,51 +200,40 @@ const AboutSection = () => {
 
           {/* Property List */}
           <div className="space-y-4 mb-8">
-            <div>
-              <h3 className="font-semibold text-lg">Majestic Town</h3>
-              <p className="text-gray-600 text-sm">
-                Located in Khalidiya, near Etisalat Building.
-              </p>
-            </div>
-
-            <div>
-              <h3 className="font-semibold text-lg">Vouge Inn</h3>
-              <p className="text-gray-600 text-sm">
-                Located in Khalidiya, near Etisalat Building.
-              </p>
-            </div>
-
-            <div>
-              <h3 className="font-semibold text-lg">DSV Property</h3>
-              <p className="text-gray-600 text-sm">
-                Near Shining Tower, Al Khalidiya.
-              </p>
-            </div>
+            {[
+              {
+                name: "Majestic Town",
+                desc: "Located in Khalidiya, near Etisalat Building.",
+              },
+              {
+                name: "Vouge Inn",
+                desc: "Located in Khalidiya, near Etisalat Building.",
+              },
+              {
+                name: "DSV Property",
+                desc: "Near Shining Tower, Al Khalidiya.",
+              },
+            ].map((prop, i) => (
+              <div key={i} className="property-item">
+                <h3 className="font-semibold text-lg">{prop.name}</h3>
+                <p className="text-gray-600 text-sm">{prop.desc}</p>
+              </div>
+            ))}
           </div>
 
           {/* Features */}
           <div className="grid sm:grid-cols-2 gap-4 mb-8">
-            <div className="flex items-center gap-3">
-              <span className="text-amber-500 text-lg">✔</span>
-              <span className="text-gray-700 text-sm">Prime Location</span>
-            </div>
-
-            <div className="flex items-center gap-3">
-              <span className="text-amber-500 text-lg">✔</span>
-              <span className="text-gray-700 text-sm">Daily Housekeeping</span>
-            </div>
-
-            <div className="flex items-center gap-3">
-              <span className="text-amber-500 text-lg">✔</span>
-              <span className="text-gray-700 text-sm">High-Speed WiFi</span>
-            </div>
-
-            <div className="flex items-center gap-3">
-              <span className="text-amber-500 text-lg">✔</span>
-              <span className="text-gray-700 text-sm">
-                Affordable Daily Rates
-              </span>
-            </div>
+            {[
+              "Prime Location",
+              "Daily Housekeeping",
+              "High-Speed WiFi",
+              "Affordable Daily Rates",
+            ].map((f, i) => (
+              <div key={i} className="feature-item flex items-center gap-3">
+                <span className="text-amber-500 text-lg">✔</span>
+                <span className="text-gray-700 text-sm">{f}</span>
+              </div>
+            ))}
           </div>
 
           {/* Room Types */}

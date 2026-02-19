@@ -1,10 +1,9 @@
 "use client";
 
 import Image from "next/image";
-import { useRef } from "react";
+import { useEffect, useRef } from "react";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
-import { useGSAP } from "@gsap/react";
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -31,31 +30,72 @@ const rooms = [
 ];
 
 const RoomsSection = () => {
-  const containerRef = useRef<HTMLDivElement>(null);
+  const sectionRef = useRef<HTMLDivElement>(null);
 
-  useGSAP(
-    () => {
-      const ctx = gsap.context(() => {
-        gsap.from(".room-card", {
-          scrollTrigger: {
-            trigger: ".rooms-wrapper",
-            start: "top 85%",
-          },
-          opacity: 0,
-          y: 50,
-          duration: 1,
-          stagger: 0.2,
-          ease: "power3.out",
-        });
-      }, containerRef);
+  useEffect(() => {
+    const section = sectionRef.current;
+    if (!section) return;
 
-      return () => ctx.revert();
-    },
-    { scope: containerRef },
-  );
+    const subtitle = section.querySelector("p");
+    const title = section.querySelector("h2");
+    const cards = gsap.utils.toArray<HTMLElement>(".room-card");
+
+    // Animate subtitle
+    if (subtitle) {
+      gsap.from(subtitle, {
+        y: 50,
+        opacity: 0,
+        duration: 0.8,
+        ease: "power3.out",
+        scrollTrigger: {
+          trigger: section,
+          start: "top 90%",
+          end: "top 70%",
+          scrub: 0.8,
+        },
+      });
+    }
+
+    // Animate title
+    if (title) {
+      gsap.from(title, {
+        y: 50,
+        opacity: 0,
+        duration: 1,
+        ease: "power3.out",
+        scrollTrigger: {
+          trigger: section,
+          start: "top 85%",
+          end: "top 65%",
+          scrub: 0.9,
+        },
+      });
+    }
+
+    // Animate cards with smooth stagger and slight scale
+    gsap.from(cards, {
+      y: 80,
+      opacity: 0,
+      scale: 0.95,
+      stagger: 0.25,
+      duration: 1.2,
+      ease: "power3.out",
+      scrollTrigger: {
+        trigger: section,
+        start: "top 80%",
+        end: "bottom 20%",
+        scrub: 1.2,
+      },
+    });
+
+    // Cleanup ScrollTriggers
+    return () => {
+      ScrollTrigger.getAll().forEach((st) => st.kill());
+    };
+  }, []);
 
   return (
-    <section ref={containerRef} className="w-full bg-gray-50 py-20 px-6">
+    <section ref={sectionRef} className="sec w-full bg-gray-50 py-20 px-6">
       <div className="max-w-7xl mx-auto text-center mb-12">
         <p className="uppercase tracking-[4px] text-amber-500 text-xs sm:text-sm mb-2">
           Our Rooms
@@ -70,7 +110,7 @@ const RoomsSection = () => {
         {rooms.map((room, index) => (
           <div
             key={index}
-            className="room-card bg-white rounded-3xl shadow-xl overflow-hidden flex flex-col"
+            className="room-card bg-white rounded-3xl shadow-xl overflow-hidden flex flex-col transform-gpu"
           >
             <div className="relative h-64 w-full">
               <Image
