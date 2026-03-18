@@ -23,10 +23,10 @@ export default function Navbar() {
           {/* Center Luxury Logo */}
           <div className="absolute left-1/2 -translate-x-1/2 text-center">
             <h1
-              className="text-2xl md:text-3xl tracking-[0.3em] font-semibold text-gray-900"
+              className="text-xs md:text-2xl tracking-[0.3em] font-semibold text-gray-900"
               style={{ fontFamily: "var(--font-luxury)" }}
             >
-              MAJESTIC TOWN
+              MAJESTIC TOWN ABU DHABI
             </h1>
             <div className="w-12 h-[1px] bg-gray-400 mx-auto mt-2"></div>
           </div>
