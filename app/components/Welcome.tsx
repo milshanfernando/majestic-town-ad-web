@@ -315,12 +315,12 @@ const Welcome = ({
               <div className="absolute inset-0 bg-gradient-to-t from-stone-950/40 to-transparent z-[5]" />
 
               {/* Floating badge */}
-              <div className="absolute bottom-5 left-5 z-10 bg-stone-950/80 backdrop-blur-sm border border-white/10 rounded-full px-4 py-2 flex items-center gap-2">
+              {/* <div className="absolute bottom-5 left-5 z-10 bg-stone-950/80 backdrop-blur-sm border border-white/10 rounded-full px-4 py-2 flex items-center gap-2">
                 <span className="w-2 h-2 rounded-full bg-amber-400 animate-pulse" />
                 <span className="text-xs text-white/70 tracking-wider uppercase">
                   Currently Available
                 </span>
-              </div>
+              </div> */}
             </div>
 
             {/* Pillars */}

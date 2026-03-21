@@ -5,32 +5,35 @@ import Welcome from "../components/Welcome";
 import ContactLocation from "../components/Contactlocation";
 import Gallery, { GalleryPhoto } from "../components/Gallery";
 
-// ── Room data ────────────────────────────────────────────────────────────────
-const deluxeKing = {
-  id: "deluxe-king",
-  type: "Deluxe King",
-  tagline: "Space, serenity & a bed worth staying in.",
+const singleRoom = {
+  id: "single-room",
+  type: "Single Room",
+  tagline: "Simple, clean & all yours.",
   description:
-    "Our signature Deluxe King room offers a plush king-sized bed dressed in premium Egyptian cotton, blackout curtains, and a private ensuite bathroom. Thoughtfully designed with the modern traveller in mind — whether you're here for business or leisure, every detail is taken care of. The room overlooks our quiet inner courtyard, ensuring a restful night in the heart of Abu Dhabi.",
-  rate: 89,
+    "The Single Room is built for the solo traveller who values simplicity and comfort. A cosy single bed dressed in fresh cotton linens, a tidy workspace, and everything you need for a relaxed stay — nothing more, nothing less. Air conditioning is shared across the floor, keeping things efficient and cost-friendly. Perfect for short visits or extended stays in the heart of Abu Dhabi.",
+  rate: 35,
   currency: "$",
-  roomSize: "320 sq ft",
-  bedSize: "1 King Bed",
-  maxGuests: 2,
+  roomSize: "130 sq ft",
+  bedSize: "1 Single Bed",
+  maxGuests: 1,
   checkIn: "2:00 PM",
   checkOut: "11:00 AM",
   facilities: [
     { label: "Free Wi-Fi", icon: null },
-    { label: "Air Conditioning", icon: null },
+    { label: "Shared AC", icon: null },
     { label: "Smart TV", icon: null },
     { label: "Work Desk", icon: null },
     { label: "Wardrobe", icon: null },
     { label: "Electric Kettle", icon: null },
     { label: "In-Room Safe", icon: null },
   ],
-  photos: ["/images/single-v-2.jpeg", "/images/kingbed.jpeg"],
+  photos: [
+    "/images/vouge_inn/room_12.jpeg",
+    "/images/vouge_inn/room_15.jpeg",
+    "/images/vouge_inn/room_14.jpeg",
+    "/images/vouge_inn/room_22.jpeg",
+  ],
 };
-
 // ── Shared spaces data ───────────────────────────────────────────────────────
 const sharedSpaces = [
   {
@@ -46,10 +49,7 @@ const sharedSpaces = [
       "Toiletries included",
       "Hair dryer available",
     ],
-    photos: [
-      "/images/bathroom.jpeg", // ← replace with your actual bathroom photos
-      "/images/bathroom-2.jpeg",
-    ],
+    photos: ["/images/washroom-s.jpeg"],
   },
   {
     name: "Common Kitchen",
@@ -66,34 +66,27 @@ const sharedSpaces = [
       "Dining area",
       "Daily cleaning",
     ],
-    photos: [
-      "/images/kitchen.jpeg", // ← replace with your actual kitchen photos
-      "/images/kitchen-2.jpeg",
-    ],
+    photos: ["/images/vouge_inn/m3_kitchen.jpeg"],
   },
 ];
 
 const galleryPhotos: GalleryPhoto[] = [
   {
-    src: "/images/12.jpeg",
-    alt: "Superior Single Room",
+    src: "/images/vouge_inn/lobby.jpeg",
+    alt: "Vogue Inn Lobby",
     span: "tall",
   },
-  { src: "/images/1.jpeg", alt: "Deluxe Single Room" },
-  { src: "/images/2.jpeg", alt: "Queen Room" },
-  { src: "/images/3.jpeg", alt: "Deluxe King Room", span: "wide" },
-  { src: "/images/4.jpeg", alt: "Shared Bathroom" },
-  { src: "/images/5.jpeg", alt: "Common Kitchen", span: "tall" },
-  { src: "/images/6.jpeg", alt: "Room Interior" },
-  { src: "/images/7.jpeg", alt: "Bathroom Facilities" },
-  { src: "/images/8.jpeg", alt: "Kitchen Facilities" },
-  { src: "/images/9.jpeg", alt: "Superior Single — Detail" },
+  { src: "/images/vouge_inn/room_12.jpeg", alt: "Single Room" },
+  { src: "/images/vouge_inn/room_15.jpeg", alt: "Single Room" },
+  { src: "/images/vouge_inn/room_14.jpeg", alt: "Single Room", span: "wide" },
+  { src: "/images/washroom-s.jpeg", alt: "Shared Bathroom" },
   {
-    src: "/images/10.jpeg",
-    alt: "Deluxe Single — Detail",
-    span: "wide",
+    src: "/images/vouge_inn/m3_kitchen.jpeg",
+    alt: "Common Kitchen",
+    span: "tall",
   },
-  { src: "/images/11.jpeg", alt: "Queen Room — Detail" },
+  { src: "/images/vouge_inn/welcome.jpeg", alt: "Lobby Seating Area" },
+  { src: "/images/vouge_inn/room_22.jpeg", alt: "Single Room" },
 ];
 
 export default function Home() {
@@ -102,10 +95,10 @@ export default function Home() {
       <Hero />
       <Welcome
         hotelName="Vouge Inn Abu Dhabi"
-        image="/images/single-v-2.jpeg"
+        image="/images/vouge_inn/welcome.jpeg"
       />
       <RoomShowcase
-        room={deluxeKing}
+        room={singleRoom}
         badge="Most Popular"
         imageRight={false}
         sharedSpaces={sharedSpaces}

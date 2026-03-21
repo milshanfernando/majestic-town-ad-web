@@ -29,7 +29,11 @@ const superiorSingle = {
     { label: "Electric Kettle", icon: null },
     { label: "In-Room Safe", icon: null },
   ],
-  photos: ["/images/superior-single.jpeg", "/images/superior-single-2.jpeg"],
+  photos: [
+    "/images/majestictown/single_room.jpeg",
+    "/images/majestictown/single_room4.jpeg",
+    "/images/majestictown/single_room2.jpeg",
+  ],
 };
 
 const deluxeSingle = {
@@ -38,8 +42,8 @@ const deluxeSingle = {
   tagline: "Smart comfort for the savvy solo traveller.",
   description:
     "Our Deluxe Single room offers a welcoming and well-appointed space for the solo guest. With a comfortable single bed and thoughtfully curated amenities, it's everything you need without the extras you don't. Air conditioning is centrally managed and shared across the floor, keeping things simple and cost-effective. A great choice for short stays and budget-conscious travellers.",
-  rate: 39,
-  currency: "$",
+  rate: 100,
+  currency: "AED",
   roomSize: "150 sq ft",
   bedSize: "1 Single Bed",
   maxGuests: 1,
@@ -48,13 +52,16 @@ const deluxeSingle = {
   facilities: [
     { label: "Free Wi-Fi", icon: null },
     { label: "Shared AC", icon: null },
-    { label: "Smart TV", icon: null },
+    // { label: "Smart TV", icon: null },
     { label: "Work Desk", icon: null },
     { label: "Wardrobe", icon: null },
-    { label: "Electric Kettle", icon: null },
+    // { label: "Electric Kettle", icon: null },
     { label: "In-Room Safe", icon: null },
   ],
-  photos: ["/images/deluxe-single.jpeg", "/images/deluxe-single-2.jpeg"],
+  photos: [
+    "/images/deluxe/deluxe-single1.jpeg",
+    "/images/deluxe/deluxe-single2.jpeg",
+  ],
 };
 
 const queenRoom = {
@@ -79,15 +86,19 @@ const queenRoom = {
     { label: "Electric Kettle", icon: null },
     { label: "In-Room Safe", icon: null },
   ],
-  photos: ["/images/queen-room.jpeg", "/images/queen-room-2.jpeg"],
+  photos: [
+    "/images/majestictown/queen_room.jpeg",
+    "/images/majestictown/queen_room2.jpeg",
+    "/images/majestictown/queen_room3.jpeg",
+  ],
 };
 
 const kingRoom = {
   id: "king-room",
-  type: "Deluxe King",
+  type: "Superior King",
   tagline: "Space, serenity & a bed worth staying in.",
   description:
-    "Our signature Deluxe King room offers a plush king-sized bed dressed in premium Egyptian cotton, blackout curtains, and your own private AC controller — so you sleep exactly as you like. Thoughtfully designed with the modern traveller in mind, whether you're here for business or leisure. The room overlooks our quiet inner courtyard, ensuring a restful night in the heart of Abu Dhabi.",
+    "Our signature Superior King room offers a plush king-sized bed dressed in premium Egyptian cotton, blackout curtains, and your own private AC controller — so you sleep exactly as you like. Thoughtfully designed with the modern traveller in mind, whether you're here for business or leisure. The room overlooks our quiet inner courtyard, ensuring a restful night in the heart of Abu Dhabi.",
   rate: 89,
   currency: "$",
   roomSize: "320 sq ft",
@@ -104,7 +115,12 @@ const kingRoom = {
     { label: "Electric Kettle", icon: null },
     { label: "In-Room Safe", icon: null },
   ],
-  photos: ["/images/single-v-2.jpeg", "/images/kingbed.jpeg"],
+  photos: [
+    "/images/majestictown/superior-king.jpeg",
+    "/images/majestictown/superior-king2.jpeg",
+    "/images/majestictown/superior-king3.jpeg",
+    "/images/majestictown/superior-king4.jpeg",
+  ],
 };
 
 // ── Shared spaces data ───────────────────────────────────────────────────────
@@ -122,7 +138,11 @@ const sharedSpaces = [
       "Toiletries included",
       "Hair dryer available",
     ],
-    photos: ["/images/bathroom.jpeg", "/images/bathroom-2.jpeg"],
+    photos: [
+      "/images/majestictown/washroom-1.jpeg",
+      "/images/majestictown/washroom-2.jpeg",
+      "/images/majestictown/washroom-3.jpeg",
+    ],
   },
   {
     name: "Common Kitchen",
@@ -139,60 +159,78 @@ const sharedSpaces = [
       "Dining area",
       "Daily cleaning",
     ],
-    photos: ["/images/kitchen.jpeg", "/images/kitchen-2.jpeg"],
+    photos: [
+      "/images/23.jpeg",
+      "/images/majestictown/kitchen2.jpeg",
+      "/images/majestictown/kitchen-m.jpeg",
+      "/images/majestictown/kitchen1.jpeg",
+      "/images/majestictown/kitchen-d.jpeg",
+    ],
   },
 ];
 
 // ── Gallery photos ────────────────────────────────────────────────────────────
 // span: "tall" = 2 rows tall, "wide" = 2 cols wide, omit for normal
 const galleryPhotos: GalleryPhoto[] = [
+  { src: "/images/majestictown/balcony.jpeg", alt: "Majestic Town Balcony" },
+  { src: "/images/majestictown/hall.jpeg", alt: "Majestic Town Hallway" },
   {
-    src: "/images/12.jpeg",
-    alt: "Superior Single Room",
+    src: "/images/majestictown/single_room.jpeg",
+    alt: "Majestic Town Single Room",
+  },
+  {
+    src: "/images/majestictown/queen_room.jpeg",
+    alt: "Majestic Town Queen Room",
+  },
+  {
+    src: "/images/majestictown/superior-king.jpeg",
+    alt: "Majestic Town Superior King Room",
+  },
+  {
+    src: "/images/majestictown/superior-king2.jpeg",
+    alt: "Majestic Town Superior King Room",
+  },
+  {
+    src: "/images/majestictown/queen_room3.jpeg",
+    alt: "Majestic Town Queen Room",
     span: "tall",
   },
-  { src: "/images/1.jpeg", alt: "Deluxe Single Room" },
-  { src: "/images/2.jpeg", alt: "Queen Room" },
-  { src: "/images/3.jpeg", alt: "Deluxe King Room", span: "wide" },
-  { src: "/images/4.jpeg", alt: "Shared Bathroom" },
-  { src: "/images/5.jpeg", alt: "Common Kitchen", span: "tall" },
-  { src: "/images/6.jpeg", alt: "Room Interior" },
-  { src: "/images/7.jpeg", alt: "Bathroom Facilities" },
-  { src: "/images/8.jpeg", alt: "Kitchen Facilities" },
-  { src: "/images/9.jpeg", alt: "Superior Single — Detail" },
   {
-    src: "/images/10.jpeg",
-    alt: "Deluxe Single — Detail",
-    span: "wide",
+    src: "/images/majestictown/single_room4.jpeg",
+    alt: "Majestic Town Single Room",
   },
-  { src: "/images/11.jpeg", alt: "Queen Room — Detail" },
+  {
+    src: "/images/majestictown/single_room2.jpeg",
+    alt: "Majestic Town Single Room",
+  },
+  {
+    src: "/images/majestictown/queen_room2.jpeg",
+    alt: "Majestic Town Queen Room",
+  },
 ];
 
 export default function Home() {
   return (
     <main className="w-dvw overflow-hidden">
       <Hero />
-      <Welcome
-        hotelName="Majestic Town Abu Dhabi"
-        image="/images/single-v-2.jpeg"
-      />
+      <Welcome hotelName="Majestic Town Abu Dhabi" image="/images/12.jpeg" />
       <RoomShowcase
         room={superiorSingle}
         badge="Private AC"
         imageRight={false}
-        sharedSpaces={sharedSpaces}
+        // sharedSpaces={sharedSpaces}
       />
       <RoomShowcase
         room={deluxeSingle}
         badge="Best Value"
         imageRight={true}
-        sharedSpaces={sharedSpaces}
+        // sharedSpaces={sharedSpaces}
       />
       <RoomShowcase
         room={queenRoom}
         badge="For Couples"
         imageRight={false}
-        sharedSpaces={sharedSpaces}
+        // sharedSpaces={sharedSpaces}
       />
       <RoomShowcase
         room={kingRoom}
@@ -230,7 +268,7 @@ export default function Home() {
           },
           {
             platform: "whatsapp",
-            url: "https://wa.me/971501234567",
+            url: "https://wa.me/971547575749",
             handle: "Chat with us",
           },
         ]}

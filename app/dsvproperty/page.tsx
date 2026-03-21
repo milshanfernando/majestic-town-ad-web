@@ -54,7 +54,7 @@ const queenRoom = {
     { label: "Electric Kettle", icon: null },
     { label: "In-Room Safe", icon: null },
   ],
-  photos: ["/images/queen-room.jpeg", "/images/queen-room-2.jpeg"],
+  photos: ["/images/dsv/queen1.jpeg", "/images/dsv/queen2.jpeg"],
 };
 
 const kingRoom = {
@@ -79,7 +79,15 @@ const kingRoom = {
     { label: "Electric Kettle", icon: null },
     { label: "In-Room Safe", icon: null },
   ],
-  photos: ["/images/king-room.jpeg", "/images/king-room-2.jpeg"],
+  photos: [
+    "/images/dsv/king3.jpeg",
+    "/images/dsv/king1.jpeg",
+    "/images/dsv/king2.jpeg",
+
+    "/images/dsv/king4.jpeg",
+    "/images/dsv/king5.jpeg",
+    "/images/dsv/king6.jpeg",
+  ],
 };
 
 // ── Shared spaces data ───────────────────────────────────────────────────────
@@ -97,7 +105,12 @@ const sharedSpaces = [
       "Toiletries included",
       "Hair dryer available",
     ],
-    photos: ["/images/bathroom.jpeg", "/images/bathroom-2.jpeg"],
+    photos: [
+      "/images/dsv/washroom4.jpeg",
+      "/images/dsv/washroom1.jpeg",
+      "/images/dsv/washroom.jpeg",
+      "/images/dsv/washroom3.jpeg",
+    ],
   },
   {
     name: "Common Kitchen",
@@ -114,31 +127,37 @@ const sharedSpaces = [
       "Dining area",
       "Daily cleaning",
     ],
-    photos: ["/images/kitchen.jpeg", "/images/kitchen-2.jpeg"],
+    photos: [
+      "/images/dsv/kitchen1.jpeg",
+      "/images/dsv/kitchen2.jpeg",
+      "/images/dsv/kitchen3.jpeg",
+      "/images/dsv/kitchen4.jpeg",
+      "/images/dsv/kitchen5.jpeg",
+    ],
   },
 ];
 
 const galleryPhotos: GalleryPhoto[] = [
   {
-    src: "/images/12.jpeg",
-    alt: "Superior Single Room",
+    src: "/images/dsv/lobby.jpeg",
+    alt: "DSV Property Lobby",
     span: "tall",
   },
-  { src: "/images/1.jpeg", alt: "Deluxe Single Room" },
-  { src: "/images/2.jpeg", alt: "Queen Room" },
-  { src: "/images/3.jpeg", alt: "Deluxe King Room", span: "wide" },
-  { src: "/images/4.jpeg", alt: "Shared Bathroom" },
-  { src: "/images/5.jpeg", alt: "Common Kitchen", span: "tall" },
-  { src: "/images/6.jpeg", alt: "Room Interior" },
-  { src: "/images/7.jpeg", alt: "Bathroom Facilities" },
-  { src: "/images/8.jpeg", alt: "Kitchen Facilities" },
-  { src: "/images/9.jpeg", alt: "Superior Single — Detail" },
-  {
-    src: "/images/10.jpeg",
-    alt: "Deluxe Single — Detail",
-    span: "wide",
-  },
-  { src: "/images/11.jpeg", alt: "Queen Room — Detail" },
+  { src: "/images/dsv/king3.jpeg", alt: "Deluxe King Room" },
+  { src: "/images/dsv/king4.jpeg", alt: "Deluxe King Room" },
+  { src: "/images/dsv/queen1.jpeg", alt: "Queen Room", span: "wide" },
+  { src: "/images/dsv/queen2.jpeg", alt: "Queen Room" },
+  // { src: "/images/dsv/single1.jpeg", alt: "Single Room" },
+  // { src: "/images/dsv/single2.jpeg", alt: "Single Room" },
+  { src: "/images/dsv/washroom1.jpeg", alt: "Shared Washroom" },
+  { src: "/images/dsv/washroom.jpeg", alt: "Shared Washroom" },
+  { src: "/images/dsv/washroom3.jpeg", alt: "Shared Washroom" },
+  { src: "/images/dsv/washroom4.jpeg", alt: "Shared Washroom" },
+  { src: "/images/dsv/kitchen1.jpeg", alt: "Common Kitchen" },
+  { src: "/images/dsv/kitchen2.jpeg", alt: "Common Kitchen" },
+  { src: "/images/dsv/kitchen3.jpeg", alt: "Common Kitchen" },
+  { src: "/images/dsv/kitchen4.jpeg", alt: "Common Kitchen" },
+  { src: "/images/dsv/kitchen5.jpeg", alt: "Common Kitchen" },
 ];
 
 export default function Home() {
@@ -147,13 +166,19 @@ export default function Home() {
       <Hero />
       <Welcome
         hotelName="DSV Property Abu Dhabi"
-        image="/images/single-room.jpeg"
+        image="/images/dsv/king6.jpeg"
       />
-      <RoomShowcase
+      {/* <RoomShowcase
         room={singleRoom}
         badge="Best Value"
         imageRight={false}
         sharedSpaces={sharedSpaces}
+      /> */}
+      <RoomShowcase
+        room={kingRoom}
+        badge="Most Popular"
+        imageRight={false}
+        // sharedSpaces={sharedSpaces}
       />
       <RoomShowcase
         room={queenRoom}
@@ -161,12 +186,7 @@ export default function Home() {
         imageRight={true}
         sharedSpaces={sharedSpaces}
       />
-      <RoomShowcase
-        room={kingRoom}
-        badge="Most Popular"
-        imageRight={false}
-        sharedSpaces={sharedSpaces}
-      />
+
       <Gallery
         photos={galleryPhotos}
         title="Inside DSV Property"
